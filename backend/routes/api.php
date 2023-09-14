@@ -16,3 +16,12 @@ Route::group(['namespace'=>'Api\Auth'], function(){
 //Home Route
 Route::get('/home','HomeController@index')->middleware('auth:api');
 
+//Bus Routes
+Route::get('/bus_det','BusController@index')->middleware('auth:api');
+Route::post('/save_bus','BusController@store')->middleware('auth:api');
+Route::post('/update_bus','BusController@update')->middleware('auth:api');
+Route::get('/destroy_bus/{id}','BusController@destroy')->middleware('auth:api');
+Route::get('/get_bus_det/{id}','BusController@loadOne')->middleware('auth:api');
+Route::get('/get_bus_status/{id}','BusController@loadStatus')->middleware('auth:api');
+
+

@@ -61,6 +61,7 @@ const Login = () => {
             </div>
             <div>
               <h1>Login</h1>
+              <h2>Expressway Transport (PVT) Ltd</h2>
               <div>
                 <img src={email} alt="email" className="email" />
                 <input type="text" name="email" value={credentials.email} onChange={handleValueChange} placeholder="Email" className="form-control name" />
