@@ -16,12 +16,20 @@ Route::group(['namespace'=>'Api\Auth'], function(){
 //Home Route
 Route::get('/home','HomeController@index')->middleware('auth:api');
 
-//Bus Routes
+//Bus
 Route::get('/bus_det','BusController@index')->middleware('auth:api');
 Route::post('/save_bus','BusController@store')->middleware('auth:api');
 Route::post('/update_bus','BusController@update')->middleware('auth:api');
 Route::get('/destroy_bus/{id}','BusController@destroy')->middleware('auth:api');
 Route::get('/get_bus_det/{id}','BusController@loadOne')->middleware('auth:api');
 Route::get('/get_bus_status/{id}','BusController@loadStatus')->middleware('auth:api');
+
+//Bus Routes
+Route::get('/route_det','RouteController@index')->middleware('auth:api');
+Route::post('/save_route','RouteController@store')->middleware('auth:api');
+Route::post('/update_route','RouteController@update')->middleware('auth:api');
+Route::get('/destroy_route/{id}','RouteController@destroy')->middleware('auth:api');
+Route::get('/get_route_det/{id}','RouteController@loadOne')->middleware('auth:api');
+Route::get('/get_route_status/{id}','RouteController@loadStatus')->middleware('auth:api');
 
 
