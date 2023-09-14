@@ -23,9 +23,9 @@ const Home = () => {
 
       setdashValuess({
         user_count: response.data.user_count,
-        item_count: response.data.item_count,
-        day_sale: response.data.day_sale,
-        total_sale: response.data.total_sale,
+        no_of_bus: response.data.no_of_bus,
+        day_shadule: response.data.day_shadule,
+        total_shadule: response.data.total_shadule,
       });
 
     } catch (error) {
@@ -51,7 +51,7 @@ const Home = () => {
 
         <div className="col-lg-2 col-sm-6">
           <div className="circle-tile ">
-            <a href="#"><div className="circle-tile-heading red"><i className="fa  fa-store fa-fw fa-3x"></i></div></a>
+            <a href="#"><div className="circle-tile-heading red"><i className="fa  fa-bus fa-fw fa-3x"></i></div></a>
             <div className="circle-tile-content red">
               <div className="circle-tile-description text-faded"> Bus </div>
               <div className="circle-tile-number text-faded ">{dashValues.no_of_bus}</div>
@@ -62,7 +62,7 @@ const Home = () => {
 
         <div className="col-lg-2 col-sm-6">
           <div className="circle-tile ">
-            <a href="#"><div className="circle-tile-heading yellow "><i className="fa fa-scale-unbalanced-flip fa-fw fa-3x"></i></div></a>
+            <a href="#"><div className="circle-tile-heading yellow "><i className="fa fa-book fa-fw fa-3x"></i></div></a>
             <div className="circle-tile-content yellow">
               <div className="circle-tile-description text-faded"> Day Shadule </div>
               <div className="circle-tile-number text-faded ">{dashValues.day_shadule}</div>

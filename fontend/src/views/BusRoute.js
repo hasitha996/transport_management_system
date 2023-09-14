@@ -49,7 +49,7 @@ const BusRoute = () => {
             selector: 'distance',
         },
         {
-            name: 'actions',
+            name: 'Actions',
             selector: 'actions',
         },
     ];
@@ -97,7 +97,7 @@ const BusRoute = () => {
 
         if (searchPhrase) {
             setEntities(
-                initialEntities.filter((entity) => entity.description.includes(searchPhrase)),
+                initialEntities.filter((entity) => entity.route_name.includes(searchPhrase)),
             );
         } else {
             setEntities(initialEntities);

@@ -32,4 +32,12 @@ Route::get('/destroy_route/{id}','RouteController@destroy')->middleware('auth:ap
 Route::get('/get_route_det/{id}','RouteController@loadOne')->middleware('auth:api');
 Route::get('/get_route_status/{id}','RouteController@loadStatus')->middleware('auth:api');
 
+//Employee Routes
+Route::get('/employee_det','EmployeeController@index')->middleware('auth:api');
+Route::post('/save_employee','EmployeeController@store')->middleware('auth:api');
+Route::post('/update_employee','EmployeeController@update')->middleware('auth:api');
+Route::get('/destroy_employee/{id}','EmployeeController@destroy')->middleware('auth:api');
+Route::get('/get_employee_det/{id}','EmployeeController@loadOne')->middleware('auth:api');
+Route::get('/get_employee_status/{id}','EmployeeController@loadStatus')->middleware('auth:api');
+
 

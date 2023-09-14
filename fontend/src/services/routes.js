@@ -1,5 +1,5 @@
 
-import {User,Home,Bus,BusRoute} from '../views';
+import {User,Home,Bus,BusRoute,Employee} from '../views';
 
 export const routes = [
   {
@@ -16,6 +16,11 @@ export const routes = [
     name: 'Route',
     pathURL: '/bus_route',
     componentName: BusRoute,
+  },
+  {
+    name: 'Employee',
+    pathURL: '/employee',
+    componentName: Employee,
   },
   {
     name: 'User',

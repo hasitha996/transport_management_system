@@ -3,9 +3,9 @@ import { api, msg } from '../services';
 import { FormModal, SystemButton } from '../components';
 import DataTable from 'react-data-table-component';
 
-const User = () => {
+const Employee = () => {
     // Module name
-    const moduleName = 'User';
+    const moduleName = 'Employee';
 
     /* --- State declarationss --- */
 
@@ -16,15 +16,15 @@ const User = () => {
     const [showModalState, setShowModalState] = useState(false);
 
     const [isLoading, setIsLoading] = useState([]);
-  
+    const user_id = localStorage.getItem('user_id');
+
     const [newEntity, setNewEntity] = useState({
         id: '',
         first_name: '',
         last_name: '',
-        email: '',
-        password: '',
-        user_role:'',
-        status: ''
+        position: '',
+        contact: '',
+        user_id: user_id
     });
 
     const [isEdit, setIsEdit] = useState(false);
@@ -37,22 +37,16 @@ const User = () => {
             selector: 'first_name',
         },
         {
-            name: 'Last name',
+            name: 'Last Name',
             selector: 'last_name',
-            wrap: true,
-            sortable: true,
         },
         {
-            name: 'Email',
-            selector: 'email',
+            name: 'Position',
+            selector: 'position',
         },
         {
-            name: 'Role',
-            selector: 'user_role',
-        },
-        {
-            name: 'Status',
-            selector: 'status',
+            name: 'Contact',
+            selector: 'contact',
         },
         {
             name: 'Actions',
@@ -76,17 +70,16 @@ const User = () => {
             let datd = [];
             setEntities(datd);
 
-            const response = await api.get('users_det');
+            const response = await api.get('employee_det');
 
-            await response.data.userdet.map((userdet) => {
-                console.log(userdet);
+            await response.data.employeedet.map((employeedet) => {
+
                 dataRows.push({
-                    first_name: userdet.first_name,
-                    last_name: userdet.last_name,
-                    email: userdet.email,
-                    user_role: userdet.user_role,
-                    status: statusButtons(userdet.id, userdet.status),
-                    actions: actionButtons(userdet.id),
+                    first_name: employeedet.first_name,
+                    last_name: employeedet.last_name,
+                    position: employeedet.position,
+                    contact: employeedet.contact,
+                    actions: actionButtons(employeedet.id),
                 });
             });
 
@@ -118,96 +111,93 @@ const User = () => {
                 <div>
                     <SystemButton type="edit" showText method={() => editRow(id)} />
                 </div>
+                &nbsp;
+                <div>
+                    <SystemButton type="delete" showText method={() => deleteEntry(id)} />
+                </div>
             </div>
         );
     };
-    const statusButtons = (id, status) => {
-
-        if (status == '1') {
-            return (
-                <div>
-                    <div className="col-6  justify-content-center">
-                        <button type="button" class="btn btn-success" onClick={() => changeStatus(id, 0)} />
-                    </div>
-                </div>
-            );
-        } else {
-            return (
-                <div>
-                    <div className="col-6  justify-content-center">
-                        <button type="button" class="btn btn-danger" onClick={() => changeStatus(id, 1)} />
-                    </div>
-
-                </div>
-            );
-        }
-
+    const handleSelectChange = (event) => {
+        setNewEntity({
+            ...newEntity,
+            position: event.target.value,
+        });
     };
-     const handleSelectChange = (event) => {
-    setNewEntity({
-        ...newEntity,
-        user_role:  event.target.value,
-    });
-  };
-
     const handleValueChange = (e) => {
         const targetInput = e.target;
         const inputName = targetInput.name;
         const inputValue = targetInput.value;
-    
+
         setNewEntity({
             ...newEntity,
             [inputName]: inputValue
         });
     };
-    
+
 
     const editRow = async (id) => {
 
 
         setEditId(id);
-        const response = await api.get(`get_user_det/${id}`);
+        const response = await api.get(`get_employee_det/${id}`);
         setNewEntity({
-            id: response.data.userdet.id,
-            first_name: response.data.userdet.first_name,
-            last_name: response.data.userdet.last_name,
-            email: response.data.userdet.email,
-            user_role: response.data.userdet.user_role,
+            id: response.data.employeedet.id,
+            first_name: response.data.employeedet.first_name,
+            last_name: response.data.employeedet.last_name,
+            position: response.data.employeedet.position,
+            contact: response.data.employeedet.contact,
+            user_id: user_id
 
         });
         setShowModalState(true);
         setIsEdit(true);
 
     };
-    const changeStatus = async (id, status) => {
-        try {
-            const response = await api.post('update_user_status').values({
-                id: id,
-                status: status,
-            });
 
-            if (response.error) {
-                Object.values(response.error).forEach((err) => {
+    const deleteEntry = async (id) => {
+        try {
+
+            const res = await api.get(`get_employee_status/${id}`);
+
+            if (res.error) {
+                Object.values(res.error).forEach((err) => {
                     msg.error(err[0]);
                 });
                 return;
+            } else {
+                const response = await api.get(`destroy_employee/${id}`);
+
+                if (response.error) {
+                    Object.values(response.error).forEach((err) => {
+                        msg.error(err[0]);
+                    });
+                    return;
+                } else {
+                    msg.success(response.data);
+                }
             }
 
-            msg.success(response.data);
+
         } catch (error) {
             msg.error(error);
-            return console.error(error);
+            return console.log(error);
         } finally {
-
+            setIsEdit(false);
+            setEditId('');
+            setShowModalState(false);
+            resetAll();
+            // fetchData();
             const timeout = setTimeout(() => {
                 window.location.reload();
             }, 3000);
 
-
             return () => clearTimeout(timeout);
         }
 
+
     }
+
     const toggleFormModal = () => {
         setShowModalState(!showModalState);
         setIsEdit(false);
@@ -222,7 +212,7 @@ const User = () => {
     const save = async () => {
         if (isEdit === false) {
             try {
-                const response = await api.post('register').values({
+                const response = await api.post('save_employee').values({
                     entity: newEntity,
                 });
 
@@ -245,7 +235,7 @@ const User = () => {
             }
         } else {
             try {
-                const response = await api.update('update_user').values({
+                const response = await api.update('update_employee').values({
                     entity: newEntity,
                 });
 
@@ -272,11 +262,12 @@ const User = () => {
 
     const resetAll = () => {
         setNewEntity({
+            id: '',
             first_name: '',
             last_name: '',
-            email: '',
-            password: '',
-            status: '',
+            position: '',
+            contact: '',
+            user_id: user_id
         });
 
         setIsLoading(false);
@@ -291,15 +282,7 @@ const User = () => {
         }
     };
 
-    const vpassword = (value) => {
-        if (value.length < 8 || value.length > 40) {
-            return (
-                <div className="invalid-feedback d-block">
-                    The password must be between 8 and 40 characters.
-                </div>
-            );
-        }
-    };
+
     //  validations
 
     /* --- End of component functions --- */
@@ -338,9 +321,9 @@ const User = () => {
                         <form onSubmit={handleSubmit}>
                             <div className="modal-body">
                                 <div className="row">
-                                    <div className="col-8">
+                                    <div className="col-6">
                                         <div className="form-group">
-                                            <label htmlFor="first_name">First Name</label>
+                                            <label htmlFor="first_name">Fist Name</label>
                                             <input
                                                 type="text"
                                                 name="first_name"
@@ -348,15 +331,12 @@ const User = () => {
                                                 className="form-control form-control-sm"
                                                 value={newEntity.first_name}
                                                 onChange={handleValueChange}
-                                                maxLength="100"
+                                                maxLength="60"
                                                 required
                                             />
                                         </div>
                                     </div>
-                                </div>
-
-                                <div className="row justify-content-end">
-                                    <div className="col-4">
+                                    <div className="col-6">
                                         <div className="form-group">
                                             <label htmlFor="last_name">Last Name</label>
                                             <input
@@ -366,59 +346,47 @@ const User = () => {
                                                 className="form-control form-control-sm"
                                                 value={newEntity.last_name}
                                                 onChange={handleValueChange}
-                                                maxLength="50"
+                                                maxLength="60"
                                                 required
                                             />
                                         </div>
                                     </div>
+                                </div>
 
+                                <div className="row">
                                     <div className="col-4">
                                         <div className="form-group">
-                                            <label htmlFor="email">Email</label>
-                                            <input
-                                                type="text"
-                                                name="email"
-                                                id="email"
-                                                className="form-control form-control-sm"
-                                                value={newEntity.email}
-                                                onChange={handleValueChange}
-                                                maxLength="50"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="col-4">
-                                        <div className="form-group">
-                                            <label htmlFor="password">password</label>
-                                            <input
-                                                type="password"
-                                                name="password"
-                                                id="password"
-                                                className="form-control form-control-sm"
-                                                value={newEntity.password}
-                                                onChange={handleValueChange}
-                                                validations={[required, vpassword]}
-                                                maxLength="50"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="col-4">
-                                        <div className="form-group">
-                                            <label htmlFor="user_role">User Role</label>
+                                            <label htmlFor="position">User Role</label>
                                             <select
-                                                name="user_role"
-                                                id="user_role"
+                                                name="position"
+                                                id="position"
                                                 className="form-control form-control-sm"
-                                                value={newEntity.user_role}
+                                                value={newEntity.position}
                                                 onChange={handleSelectChange}
                                                 required
                                             >
                                                 <option value="">-- Select User Role --</option>
                                                 <option value="admin">Admin</option>
                                                 <option value="owner">Owner</option>
-                                                <option value="user">User</option>
-                                                {/* Add more role options as needed */}
+                                                <option value="driver">Driver</option>
+                                                <option value="assistent">Assistent</option>
+                                                <option value="staff">Staff</option>
                                             </select>
+                                        </div>
+                                    </div>
+                                    <div className="col-4">
+                                        <div className="form-group">
+                                            <label htmlFor="contact">Contacts</label>
+                                            <input
+                                                type="text"
+                                                name="contact"
+                                                id="contact"
+                                                className="form-control form-control-sm"
+                                                value={newEntity.contact}
+                                                onChange={handleValueChange}
+                                                maxLength="50"
+                                                required
+                                            />
                                         </div>
                                     </div>
 
@@ -445,7 +413,7 @@ const User = () => {
                                     name="filter_data"
                                     id="filter_data"
                                     onChange={filterData}
-                                    placeholder="Filter User Name..."
+                                    placeholder="Filter item Name..."
                                 />
                             </div>
                         </div>
@@ -468,4 +436,5 @@ const User = () => {
     /* --- End of component renders --- */
 };
 
-export default User;
+
+export default Employee;

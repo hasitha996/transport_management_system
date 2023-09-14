@@ -44,7 +44,7 @@ const Bus = () => {
             selector: 'model',
         },
         {
-            name: 'actions',
+            name: 'Actions',
             selector: 'actions',
         },
     ];
@@ -91,7 +91,7 @@ const Bus = () => {
 
         if (searchPhrase) {
             setEntities(
-                initialEntities.filter((entity) => entity.description.includes(searchPhrase)),
+                initialEntities.filter((entity) => entity.bus_reg_no.includes(searchPhrase)),
             );
         } else {
             setEntities(initialEntities);
