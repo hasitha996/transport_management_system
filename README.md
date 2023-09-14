@@ -28,10 +28,6 @@ php artisan key:generate (for genarete app key)
 
 php artisan storage:link (link storage folder)
 
-add php ini file  (extension=fileinfo )
-
-
-
 
 #setup fontend 
 open fontend folder and run npm install on cmd
