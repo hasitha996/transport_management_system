@@ -40,4 +40,11 @@ Route::get('/destroy_employee/{id}','EmployeeController@destroy')->middleware('a
 Route::get('/get_employee_det/{id}','EmployeeController@loadOne')->middleware('auth:api');
 Route::get('/get_employee_status/{id}','EmployeeController@loadStatus')->middleware('auth:api');
 
+//Schedule Routes
+Route::get('/schedule_det','ScheduleController@index')->middleware('auth:api');
+Route::post('/save_schedule','ScheduleController@store')->middleware('auth:api');
+Route::post('/update_schedule','ScheduleController@update')->middleware('auth:api');
+Route::get('/destroy_schedule/{id}','ScheduleController@destroy')->middleware('auth:api');
+Route::get('/get_schedule_det/{id}','ScheduleController@loadOne')->middleware('auth:api');
+
 

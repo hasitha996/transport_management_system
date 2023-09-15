@@ -24,6 +24,12 @@ class AuthService {
     localStorage.setItem("user_id", response.id);
     localStorage.setItem("user_name", response.first_name);
     localStorage.setItem("access_token", response.token);
+    if( response.user_role == "admin"){
+      localStorage.setItem("isAdmin", true);
+    }else{
+      localStorage.setItem("isAdmin", false);
+    }
+
     return true;
      
   }  

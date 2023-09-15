@@ -1,5 +1,5 @@
 
-import {User,Home,Bus,BusRoute,Employee} from '../views';
+import {User,Home,Bus,BusRoute,Employee,Schedule} from '../views';
 
 export const routes = [
   {
@@ -23,9 +23,15 @@ export const routes = [
     componentName: Employee,
   },
   {
+    name: 'Schedule',
+    pathURL: '/schedule',
+    componentName: Schedule,
+  },
+  {
     name: 'User',
     pathURL: '/user',
     componentName: User,
+    adminOnly: true,
   }, 
 ];
 export default routes;

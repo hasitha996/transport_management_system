@@ -13,6 +13,7 @@ class CreateSchedulesTable extends Migration
             $table->unsignedBigInteger('bus_id');
             $table->unsignedBigInteger('route_id');
             $table->unsignedBigInteger('emp_id');
+            $table->string('start_location', 60);
             $table->string('end_location', 60);
             $table->dateTime('departure_time');
             $table->dateTime('arrival_time');

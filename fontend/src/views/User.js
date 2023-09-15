@@ -415,7 +415,7 @@ const User = () => {
                                             >
                                                 <option value="">-- Select User Role --</option>
                                                 <option value="admin">Admin</option>
-                                                <option value="owner">Owner</option>
+                                                <option value="admin">Owner</option>
                                                 <option value="user">User</option>
                                                 {/* Add more role options as needed */}
                                             </select>
