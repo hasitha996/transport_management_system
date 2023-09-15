@@ -26,9 +26,6 @@ php artisan passport:install (create passport client)
 
 php artisan key:generate (for genarete app key)
 
-php artisan storage:link (link storage folder)
-
-
 #setup fontend 
 open fontend folder and run npm install on cmd
 
