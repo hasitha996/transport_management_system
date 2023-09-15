@@ -17,7 +17,7 @@ class UserTableSeeder extends Seeder
             'last_name' => 'Admin',
             'email' => 'admin@admin.com',
             'status' => '1',
-            'user_type' => 'Admin',
+            'user_role' => 'Admin',
             'password' => bcrypt('admin'),
         ]);
 
@@ -26,7 +26,7 @@ class UserTableSeeder extends Seeder
             'last_name' => 'Doe',
             'email' => 'john@test.com',
             'status' => '1',
-            'user_type' => 'user',
+            'user_role' => 'user',
             'password' => bcrypt('password'),
         ]);
 
@@ -35,7 +35,7 @@ class UserTableSeeder extends Seeder
             'last_name' => 'Smith',
             'email' => 'jane@test.com',
             'status' => '1',
-            'user_type' => 'admin',
+            'user_role' => 'admin',
             'password' => bcrypt('password'),
         ]);
     }
