@@ -392,11 +392,17 @@ const Schedule = () => {
                                                 required
                                             >
                                                 <option value="">-- Select an option --</option>
-                                                {busList.map((option) => (
-                                                    <option key={option.bus_reg_no} value={option.id} value1={option.id}>
-                                                        {option.bus_reg_no}
+                                                {busList && busList.length > 0 ? (
+                                                    busList.map((option) => (
+                                                        <option key={option.bus_reg_no} value={option.id}>
+                                                            {option.bus_reg_no}
+                                                        </option>
+                                                    ))
+                                                ) : (
+                                                    <option value="" disabled>
+                                                        No buses available
                                                     </option>
-                                                ))}
+                                                )}
                                             </select>
                                         </div>
                                     </div>
@@ -412,11 +418,17 @@ const Schedule = () => {
                                                 required
                                             >
                                                 <option value="">-- Select an option --</option>
-                                                {routeList.map((option) => (
-                                                    <option key={option.route_name} value={option.id} value1={option.id}>
-                                                        {option.route_name}
+                                                {routeList && routeList.length > 0 ? (
+                                                    routeList.map((option) => (
+                                                        <option key={option.route_name} value={option.id}>
+                                                            {option.route_name}
+                                                        </option>
+                                                    ))
+                                                ) : (
+                                                    <option value="" disabled>
+                                                        No routes available
                                                     </option>
-                                                ))}
+                                                )}
                                             </select>
                                         </div>
                                     </div>
@@ -432,11 +444,18 @@ const Schedule = () => {
                                                 required
                                             >
                                                 <option value="">-- Select an option --</option>
-                                                {empList.map((option) => (
-                                                    <option key={option.first_name} value={option.id} value1={option.id}>
-                                                        {option.first_name}
+                                                {empList && empList.length > 0 ? (
+                                                    empList.map((option) => (
+                                                        <option key={option.first_name} value={option.id}>
+                                                            {option.first_name}
+                                                        </option>
+                                                    ))
+                                                ) : (
+                                                    <option value="" disabled>
+                                                        No employees available
                                                     </option>
-                                                ))}
+                                                )}
+
                                             </select>
                                         </div>
                                     </div>
