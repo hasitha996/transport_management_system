@@ -115,7 +115,7 @@ const Schedule = () => {
             setBusList(response.data.bus);
             setRouteList(response.data.route);
             setEmpList(response.data.employee);
-            
+
             setEntities(dataRows);
             setInitialEntities(dataRows);
             setIsLoading(false);
@@ -175,7 +175,7 @@ const Schedule = () => {
             ...newEntity,
             departure_time: selectedMoment,
         });
-         
+
     };
     const handleADatetimeChange = (selectedMoment) => {
         // const formattedATime = selectedMoment.format('YYYY-MM-DD HH:mm:ss');
@@ -220,27 +220,16 @@ const Schedule = () => {
 
     const deleteEntry = async (id) => {
         try {
+            const response = await api.get(`destroy_schedule/${id}`);
 
-            const res = await api.get(`get_schedule_status/${id}`);
-
-            if (res.error) {
-                Object.values(res.error).forEach((err) => {
+            if (response.error) {
+                Object.values(response.error).forEach((err) => {
                     msg.error(err[0]);
                 });
                 return;
             } else {
-                const response = await api.get(`destroy_schedule/${id}`);
-
-                if (response.error) {
-                    Object.values(response.error).forEach((err) => {
-                        msg.error(err[0]);
-                    });
-                    return;
-                } else {
-                    msg.success(response.data);
-                }
+                msg.success(response.data);
             }
-
 
         } catch (error) {
             msg.error(error);
@@ -389,7 +378,7 @@ const Schedule = () => {
                     >
                         <form onSubmit={handleSubmit}>
                             <div className="modal-body">
-                             
+
                                 <div className="row">
                                     <div className="col-4">
                                         <div className="form-group">
@@ -402,7 +391,7 @@ const Schedule = () => {
                                                 onChange={handleSelectBusChange}
                                                 required
                                             >
-                                               <option value="">-- Select an option --</option>
+                                                <option value="">-- Select an option --</option>
                                                 {busList.map((option) => (
                                                     <option key={option.bus_reg_no} value={option.id} value1={option.id}>
                                                         {option.bus_reg_no}
@@ -422,6 +411,7 @@ const Schedule = () => {
                                                 onChange={handleSelectRouteChange}
                                                 required
                                             >
+                                                <option value="">-- Select an option --</option>
                                                 {routeList.map((option) => (
                                                     <option key={option.route_name} value={option.id} value1={option.id}>
                                                         {option.route_name}
@@ -441,6 +431,7 @@ const Schedule = () => {
                                                 onChange={handleSelectEmpChange}
                                                 required
                                             >
+                                                <option value="">-- Select an option --</option>
                                                 {empList.map((option) => (
                                                     <option key={option.first_name} value={option.id} value1={option.id}>
                                                         {option.first_name}
@@ -501,7 +492,7 @@ const Schedule = () => {
 
                                             <label htmlFor="arrival_time">Arrival Time:</label>
                                             <Datetime
-                                                name="arrival_time"                                                
+                                                name="arrival_time"
                                                 value={newEntity.arrival_time}
                                                 onChange={handleADatetimeChange}
                                                 inputProps={{ id: 'arrival_time', readOnly: true }}
