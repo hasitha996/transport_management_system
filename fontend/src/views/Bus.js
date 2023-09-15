@@ -158,7 +158,6 @@ const Bus = () => {
                 if (response.error) {
                     Object.values(response.error).forEach((err) => {
                         msg.error(err[0]);
-                        console.log(err)
                     });
                     return;
                 } else {
