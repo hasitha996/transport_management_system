@@ -12,6 +12,7 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
+        // user data
         $admin = User::create([
             'first_name' => 'Admin',
             'last_name' => 'Admin',
