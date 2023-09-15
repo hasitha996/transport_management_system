@@ -381,7 +381,7 @@ const Bus = () => {
                                     name="filter_data"
                                     id="filter_data"
                                     onChange={filterData}
-                                    placeholder="Filter item Name..."
+                                    placeholder="Filter Reg No..."
                                 />
                             </div>
                         </div>

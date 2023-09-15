@@ -130,7 +130,7 @@ const Schedule = () => {
 
         if (searchPhrase) {
             setEntities(
-                initialEntities.filter((entity) => entity.route_id.includes(searchPhrase)),
+                initialEntities.filter((entity) => entity.bus_reg_no.includes(searchPhrase)),
             );
         } else {
             setEntities(initialEntities);
@@ -531,7 +531,7 @@ const Schedule = () => {
                                     name="filter_data"
                                     id="filter_data"
                                     onChange={filterData}
-                                    placeholder="Filter Roue No ..."
+                                    placeholder="Filter Bus Reg No ..."
                                 />
                             </div>
                         </div>

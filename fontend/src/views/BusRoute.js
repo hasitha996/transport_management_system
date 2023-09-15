@@ -404,7 +404,7 @@ const BusRoute = () => {
                                     name="filter_data"
                                     id="filter_data"
                                     onChange={filterData}
-                                    placeholder="Filter item Name..."
+                                    placeholder="Filter Route Name..."
                                 />
                             </div>
                         </div>

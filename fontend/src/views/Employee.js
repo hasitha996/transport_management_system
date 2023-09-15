@@ -413,7 +413,7 @@ const Employee = () => {
                                     name="filter_data"
                                     id="filter_data"
                                     onChange={filterData}
-                                    placeholder="Filter item Name..."
+                                    placeholder="Filter  Name..."
                                 />
                             </div>
                         </div>
